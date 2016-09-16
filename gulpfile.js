@@ -75,6 +75,13 @@ gulp.task('sass', function() {
     .pipe(browserSync.stream());
 });
 
+//assets
+gulp.task('assets', function() {
+  return gulp.src('./src/assets/**/*')
+    .pipe(gulp.dest('build/assets'))
+    .pipe(browserSync.stream());
+})
+
 // browser sync server for live reload
 gulp.task('serve', function() {
   browserSync.init({
@@ -88,7 +95,7 @@ gulp.task('serve', function() {
 });
 
 // use gulp-sequence to finish building html, sass and js before first page load
-gulp.task('default', gulpSequence(['html', 'sass', 'js'], 'serve'));
+gulp.task('default', gulpSequence(['html', 'sass', 'js', 'assets'], 'serve'));
 
 // deploy site to github pages
 gulp.task('deploy', function() {

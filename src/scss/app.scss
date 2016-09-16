@@ -49,3 +49,17 @@
 
 @include motion-ui-transitions;
 @include motion-ui-animations;
+
+body {
+  background: url('../assets/weather.png') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+} 
+
+label, input {
+    font-size: 72px;
+}
+
+h1 {
+    font-size: 72px;
+}
