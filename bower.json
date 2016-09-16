@@ -1,0 +1,10 @@
+{
+  "name": "fcc-local-weather",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
