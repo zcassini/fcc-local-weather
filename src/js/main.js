@@ -7,28 +7,25 @@ var units = 'us'
 getGeo()
 
 $('Input[type=radio]').change(function(e) {
-  console.log('hih')
-  units = this.id === 'fahrenheit' ? 'fahrenheit' : 'si'
+  units = this.id === 'fahrenheit' ? 'us' : 'si'
   getGeo()
 })
 
 
 getWeather = function(longitude, latitude) {
   var url = "https://api.forecast.io/forecast/d8f4a1ce8e7d5acad8d319e14d7c2a20/" + latitude + "," + longitude + "?exclude=minutely, hourly, daily, alerts, flags&units=" + units
-  var city = getCity(longitured, latitude)
+  var city = getCity(longitude, latitude)
   $.ajax({
     url: url,
     dataType: 'jsonp',
     success: function(json) {
       var currently = json.currently;
-      if (units == 'si') {
-        $('#temp').html(currently.temperature + "<i class='wi wi-celsius'></i>");
-      } else {
-        $('#temp').text(currently.temperature + "<i class='wi wi-fahrenheit'></i>");
-      }
+      units === 'si'
+        ? $('#temp').html(currently.temperature + "<i class='wi wi-celsius'></i>")
+        : $('#temp').html(currently.temperature + "<i class='wi wi-fahrenheit'></i>")
       $('#summary').text(currently.summary)
       $('#icon').html("<i class='wi wi-forecast-io-" + currently.icon + "'></i>");
-      $('#city').text(city + "," + state);
+      $('#city').text(city);
 
     },
     error: function(e) {
@@ -49,6 +46,7 @@ function getGeo() {
   function success(position) {
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
+    console.log(longitude + ' ' + latitude)
 
     var img = new Image();
     img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
@@ -66,7 +64,7 @@ function getGeo() {
   navigator.geolocation.getCurrentPosition(success, error);
 }
 
-function getCity(latitude, longitured) {
+function getCity(latitude, longitude) {
   var geocodingAPI = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude; //&key=YOUR_SERVER_API_KEY";
 
   $.getJSON(geocodingAPI, function(json) {
