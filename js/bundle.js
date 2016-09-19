@@ -18894,8 +18894,8 @@ $(document).foundation()
 var gkey = '&key=AIzaSyBBpaZOR5ZnKTBDfZYT3kuAi-bS_e8gHPo'
 var units = 'us'
   // var city =  'Unknown'
-// getGeo()
-geoFindMe()
+ getGeo()
+//geoFindMe()
 $('Input[type=radio]').change(function (e) {
   units = this.id === 'fahrenheit' ? 'us' : 'si'
   getGeo()
@@ -18932,7 +18932,7 @@ function getGeo () {
   function success (position) {
     var latitude = position.coords.latitude
     var longitude = position.coords.longitude
-    getWeather(longitude, latitude)
+    getWeather(latitude,longitude)
   }
  
   function error () {
@@ -18962,34 +18962,6 @@ function setCity (latitude, longitude) {
   })
 }
 
-function geoFindMe() {
-  var output = document.getElementById("out");
-
-  if (!navigator.geolocation){
-    output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-    return;
-  }
-
-  function success(position) {
-    var latitude  = position.coords.latitude;
-    var longitude = position.coords.longitude;
-
-    output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
-
-    var img = new Image();
-    img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
-
-    output.appendChild(img);
-  };
-
-  function error() {
-    output.innerHTML = "Unable to retrieve your location";
-  };
-
-  output.innerHTML = "<p>Locating…</p>";
-
-  navigator.geolocation.getCurrentPosition(success, error);
-}
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../../node_modules/foundation-sites/dist/foundation.js":"/home/zac/dev/fcc/fcc-local-weather/node_modules/foundation-sites/dist/foundation.js","jquery":"/home/zac/dev/fcc/fcc-local-weather/node_modules/jquery/dist/jquery.js"}]},{},["/home/zac/dev/fcc/fcc-local-weather/src/js/main"]);
