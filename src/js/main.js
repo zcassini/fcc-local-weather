@@ -4,7 +4,7 @@ $(document).foundation()
 
 var gkey = '&key=AIzaSyBBpaZOR5ZnKTBDfZYT3kuAi-bS_e8gHPo'
 var units = 'us'
-
+console.log('gitcheck')
 getGeo()
 
 $('Input[type=radio]').change(function (e) {
