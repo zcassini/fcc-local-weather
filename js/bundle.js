@@ -18904,6 +18904,7 @@ $('Input[type=radio]').change(function (e) {
 function getWeather (latitude, longitude) {
   var url = 'https://api.forecast.io/forecast/d8f4a1ce8e7d5acad8d319e14d7c2a20/' + latitude + ',' + longitude + '?exclude=minutely, hourly, daily, alerts, flags&units=' + units
   var city = getCity(latitude, longitude)
+  console.log(city)
   $.ajax({
     url: url,
     dataType: 'jsonp',
@@ -18950,7 +18951,8 @@ function getCity (latitude, longitude) {
   var geocodingAPI = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude +  gkey
    // var geocodingAPI = 'https://maps.googleapis.com/maps/api/staticmap?center=' + latitude + ',' + longitude + '&zoom=13&size=300x300&sensor=false&key=AIzaSyBBpaZOR5ZnKTBDfZYT3kuAi-bS_e8gHPo'
   console.log('huhuhu')
-  $.getJSON(geocodingAPI, function (json) {
+  var city =' '
+  return $.getJSON(geocodingAPI, function (json) {
     console.log('oh hai')
     console.log(json)
     if (json.status === 'OK') {
@@ -18959,19 +18961,20 @@ function getCity (latitude, longitude) {
       // look for locality tag and administrative_area_level_1
       var city = ''
       var state = ''
-      for (var i = 0, len = result.address_components.length; i < len; i++) {
-        var ac = result.address_components[i]
-        if (ac.types.indexOf('administrative_area_level_1') >= 0) state = ac.short_name
-        if (ac.types.indexOf('locality') >= 0) city = ac.short_name
-      }
-      // for (let res of result.address_components) {
-      //   if (res.types.indexOf('administrative_area_level_1') >= 0) state = res.short_name
-      //   if (res.types.indexOf('locality') >= 0) city = res.short_name
+      // for (var i = 0, len = result.address_components.length; i < len; i++) {
+      //   var ac = result.address_components[i]
+      //   if (ac.types.indexOf('administrative_area_level_1') >= 0) state = ac.short_name
+      //   if (ac.types.indexOf('locality') >= 0) city = ac.short_name
       // }
-      console.log(city + state)
-      return city + ',' + state
+      for (let res of result.address_components) {
+        if (res.types.indexOf('administrative_area_level_1') >= 0) state = res.short_name
+        if (res.types.indexOf('locality') >= 0) city = res.short_name
+      }
+      // consol ce.log(city + state)
+      city += ', ' + state
     }
   })
+return city
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})

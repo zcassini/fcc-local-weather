@@ -3766,11 +3766,14 @@ body {
   background-size: cover;
   background-attachment: fixed; }
 
-label, input {
+icon {
   font-size: 72px; }
 
+label, input {
+  font-size: 36px; }
+
 h1 {
-  font-size: 72px; }
+  font-size: 36px; }
 
 .round {
   border-radius: 20px; }
