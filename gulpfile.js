@@ -64,6 +64,7 @@ gulp.task('sass', function() {
   return gulp.src('./src/scss/**/*.scss')
     .pipe(sass({
       includePaths: [].concat(require('node-bourbon').includePaths, ['node_modules/foundation-sites/scss', 'node_modules/motion-ui/src'])
+      //includePaths: require('node-bourbon').with(['node_modules/foundation-sites/scss', 'node_modules/motion-ui/src'])
     }))
     .on('error', onError)
     .pipe(prod ? minifycss() : gutil.noop())
