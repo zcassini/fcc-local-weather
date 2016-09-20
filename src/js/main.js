@@ -71,11 +71,9 @@ function setCity (latitude, longitude) {
 }
 
 function toFahrenheit (temp) {
-  console.log('okie')
   return ((temp - 32) * (5 / 9)).toFixed(0)
 }
 
 function toCelcius (temp) {
-  console.log('okie')
   return (temp * 1.8 + 32).toFixed(0)
 }
