@@ -48,7 +48,6 @@ function getGeo () {
   }
 
   output.innerHTML = '<p>Locating…</p>'
-
   navigator.geolocation.getCurrentPosition(success, error)
 }
 
