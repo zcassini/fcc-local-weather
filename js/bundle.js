@@ -18892,29 +18892,26 @@ var foundation = require('../../node_modules/foundation-sites/dist/foundation.js
 $(document).foundation()
 
 var gkey = '&key=AIzaSyBBpaZOR5ZnKTBDfZYT3kuAi-bS_e8gHPo'
-var units = 'us'
-  // var city =  'Unknown'
- getGeo()
-//geoFindMe()
+var fIcon = "<i class='wi wi-fahrenheit'></i>"
+var cIcon = "<i class='wi wi-celsius'></i>"
+getGeo()
+
 $('Input[type=radio]').change(function (e) {
-  units = this.id === 'fahrenheit' ? 'us' : 'si'
-  getGeo()
+  var temp = $('#temp')
+  temp.html(this.id === 'fahrenheit' ? toCelcius(temp.text()) + cIcon : toFahrenheit(temp.text()) + fIcon)
 })
 
 function getWeather (latitude, longitude) {
-  var url = 'https://api.forecast.io/forecast/d8f4a1ce8e7d5acad8d319e14d7c2a20/' + latitude + ',' + longitude + '?exclude=minutely, hourly, daily, alerts, flags&units=' + units
+  var url = 'https://api.forecast.io/forecast/d8f4a1ce8e7d5acad8d319e14d7c2a20/' + latitude + ',' + longitude + '?exclude=minutely, hourly, daily, alerts, flags&units=us'
   setCity(latitude, longitude)
   $.ajax({
     url: url,
     dataType: 'jsonp',
     success: function (json) {
       var currently = json.currently
-      units === 'si'
-        ? $('#temp').html(currently.temperature + "<i class='wi wi-celsius'></i>")
-        : $('#temp').html(currently.temperature + "<i class='wi wi-fahrenheit'></i>")
+      $('#temp').html(currently.temperature.toFixed(0) + fIcon)
       $('#summary').text(currently.summary)
       $('#icon').html("<i class='wi wi-forecast-io-" + currently.icon + "'></i>")
-        // $('#city').text(city)
     },
     error: function (e) {
       console.log(e.message)
@@ -18932,9 +18929,9 @@ function getGeo () {
   function success (position) {
     var latitude = position.coords.latitude
     var longitude = position.coords.longitude
-    getWeather(latitude,longitude)
+    getWeather(latitude, longitude)
   }
- 
+
   function error () {
     output.innerHTML = 'Unable to retrieve your location'
   }
@@ -18962,6 +18959,15 @@ function setCity (latitude, longitude) {
   })
 }
 
+function toFahrenheit (temp) {
+  console.log('okie')
+  return ((temp - 32) * (5 / 9)).toFixed(0)
+}
+
+function toCelcius (temp) {
+  console.log('okie')
+  return (temp * 1.8 + 32).toFixed(0)
+}
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../../node_modules/foundation-sites/dist/foundation.js":"/home/zac/dev/fcc/fcc-local-weather/node_modules/foundation-sites/dist/foundation.js","jquery":"/home/zac/dev/fcc/fcc-local-weather/node_modules/jquery/dist/jquery.js"}]},{},["/home/zac/dev/fcc/fcc-local-weather/src/js/main"]);
