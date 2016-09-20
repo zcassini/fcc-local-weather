@@ -16,7 +16,7 @@ var streamify    = require('gulp-streamify');
 var sourcemaps   = require('gulp-sourcemaps');
 var concat       = require('gulp-concat');
 var babel        = require('gulp-babel');
-var ghPages      = require('gulp-gh-pages');
+var ghPages      = require('gulp-gh-pages'); 
 var prod         = gutil.env.prod;
 
 var onError = function(err) {
@@ -87,7 +87,8 @@ gulp.task('assets', function() {
 gulp.task('serve', function() {
   browserSync.init({
     server: {
-      baseDir: './build'
+      baseDir: './build',
+      https:  true
     }
   });
 
